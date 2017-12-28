@@ -24865,11 +24865,6 @@
 	            'div',
 	            null,
 	            React.createElement(NavComponent, null),
-	            React.createElement(
-	                'h1',
-	                null,
-	                'Main Component'
-	            ),
 	            this.props.children
 	        );
 	    }
@@ -24924,6 +24919,8 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var WeatherMessage = __webpack_require__(221);
+	var WeatherForm = __webpack_require__(222);
 
 	var WeatherComponent = React.createClass({
 	    displayName: 'WeatherComponent',
@@ -24935,8 +24932,10 @@
 	            React.createElement(
 	                'h2',
 	                null,
-	                'weather components'
-	            )
+	                'Get Weather'
+	            ),
+	            React.createElement(WeatherForm, null),
+	            React.createElement(WeatherMessage, null)
 	        );
 	    }
 	});
@@ -24994,6 +24993,62 @@
 	});
 
 	module.exports = ExamplesComponent;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var WeatherMessage = React.createClass({
+	    displayName: 'WeatherMessage',
+
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'p',
+	                null,
+	                'The weather is 15 in Marrakech'
+	            )
+	        );
+	    }
+	});
+
+	module.exports = WeatherMessage;
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var WeatherForm = React.createClass({
+	    displayName: "WeatherForm",
+
+	    render: function render() {
+	        return React.createElement(
+	            "form",
+	            { onSubmit: this.onFormSubmitted },
+	            React.createElement("input", { type: "text", ref: "cityName", placeHolder: "enter the city name" }),
+	            React.createElement(
+	                "button",
+	                null,
+	                " Get Weather "
+	            )
+	        );
+	    },
+	    onFormSubmitted: function onFormSubmitted(e) {
+	        e.preventDefault();
+	    }
+	});
+
+	module.exports = WeatherForm;
 
 /***/ }
 /******/ ]);
