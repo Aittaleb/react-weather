@@ -24936,27 +24936,45 @@
 	    },
 	    getInitialState: function getInitialState() {
 	        return {
-	            temp: this.props.temp,
-	            city: this.props.city
+	            isLoading: false
 	        };
 	    },
 	    handleCityName: function handleCityName(city) {
+	        this.setState({
+	            isLoading: true
+	        });
 	        var self = this;
 	        getTemp(city).then(function (temp) {
 	            self.setState({
 	                city: city,
-	                temp: temp
+	                temp: temp,
+	                isLoading: false
 	            });
 	        }, function (errorMessage) {
+	            self.setState({
+	                isLoading: false
+	            });
 	            alert(errorMessage);
 	        });
 	    },
 	    render: function render() {
 	        var _state = this.state,
+	            isLoading = _state.isLoading,
 	            city = _state.city,
 	            temp = _state.temp;
 
 	        var data = { city: city, temp: temp };
+	        function renderMessage() {
+	            if (isLoading) {
+	                return React.createElement(
+	                    'h3',
+	                    null,
+	                    'Loading...'
+	                );
+	            } else if (temp && city) {
+	                return React.createElement(WeatherMessage, { data: data });
+	            }
+	        }
 	        return React.createElement(
 	            'div',
 	            null,
@@ -24966,7 +24984,7 @@
 	                'Get Weather'
 	            ),
 	            React.createElement(WeatherForm, { onNewCityName: this.handleCityName }),
-	            React.createElement(WeatherMessage, { data: data })
+	            renderMessage()
 	        );
 	    }
 	});

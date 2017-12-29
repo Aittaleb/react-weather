@@ -13,29 +13,43 @@ var WeatherComponent = React.createClass({
     },
     getInitialState: function () {
         return {
-            temp: this.props.temp,
-            city: this.props.city
+            isLoading: false
         }
     },
     handleCityName: function (city) {
+        this.setState({
+            isLoading: true
+        });
         var self = this;
         getTemp(city).then(function (temp) {
             self.setState({
                 city,
-                temp
+                temp,
+                isLoading: false
             });
+
         }, function (errorMessage) {
+            self.setState({
+                isLoading: false
+            });
             alert(errorMessage);
         });
     },
     render: function () {
-        var { city, temp } = this.state;
+        var { isLoading ,city, temp } = this.state;
         var data = { city, temp }
+        function renderMessage(){
+            if(isLoading){
+                return <h3>Loading...</h3>
+            }else if(temp && city ){
+                return  <WeatherMessage data={data} />
+            }
+        }
         return (
             <div>
                 <h2>Get Weather</h2>
                 <WeatherForm onNewCityName={this.handleCityName} />
-                <WeatherMessage data={data} />
+                {renderMessage()}
             </div>
         );
     }
