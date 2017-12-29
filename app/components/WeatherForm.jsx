@@ -10,7 +10,13 @@ var WeatherForm = React.createClass({
         );
     },
     onFormSubmitted : function(e){
+        var city = this.refs.cityName.value;
         e.preventDefault();
+        if(city.length > 0){
+            this.refs.cityName.value = '';
+            this.props.onNewCityName(city);
+        }
+        
     }
 });
 

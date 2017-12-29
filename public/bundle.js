@@ -24925,7 +24925,25 @@
 	var WeatherComponent = React.createClass({
 	    displayName: 'WeatherComponent',
 
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            temp: 30,
+	            city: 'Marrakech'
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            temp: this.props.temp,
+	            city: this.props.city
+	        };
+	    },
+	    handleCityName: function handleCityName(city) {
+	        this.setState({
+	            city: city
+	        });
+	    },
 	    render: function render() {
+	        var city = this.state.city;
 	        return React.createElement(
 	            'div',
 	            null,
@@ -24934,8 +24952,8 @@
 	                null,
 	                'Get Weather'
 	            ),
-	            React.createElement(WeatherForm, null),
-	            React.createElement(WeatherMessage, null)
+	            React.createElement(WeatherForm, { onNewCityName: this.handleCityName }),
+	            React.createElement(WeatherMessage, { message: city })
 	        );
 	    }
 	});
@@ -25006,13 +25024,14 @@
 	    displayName: 'WeatherMessage',
 
 	    render: function render() {
+	        var message = this.props.message;
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'p',
 	                null,
-	                'The weather is 15 in Marrakech'
+	                message
 	            )
 	        );
 	    }
@@ -25044,7 +25063,12 @@
 	        );
 	    },
 	    onFormSubmitted: function onFormSubmitted(e) {
+	        var city = this.refs.cityName.value;
 	        e.preventDefault();
+	        if (city.length > 0) {
+	            this.refs.cityName.value = '';
+	            this.props.onNewCityName(city);
+	        }
 	    }
 	});
 
