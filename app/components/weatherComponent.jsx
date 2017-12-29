@@ -1,6 +1,7 @@
 var React = require('react');
 var WeatherMessage = require('./WeatherMessage');
 var WeatherForm = require('./WeatherForm');
+var { getTemp } = require('../api/openWeatherMap');
 
 
 var WeatherComponent = React.createClass({
@@ -16,18 +17,25 @@ var WeatherComponent = React.createClass({
             city: this.props.city
         }
     },
-    handleCityName : function(city){
-        this.setState({
-            city
+    handleCityName: function (city) {
+        var self = this;
+        getTemp(city).then(function (temp) {
+            self.setState({
+                city,
+                temp
+            });
+        }, function (errorMessage) {
+            alert(errorMessage);
         });
     },
     render: function () {
-        var city = this.state.city;
+        var { city, temp } = this.state;
+        var data = { city, temp }
         return (
             <div>
                 <h2>Get Weather</h2>
                 <WeatherForm onNewCityName={this.handleCityName} />
-                <WeatherMessage message={city} />
+                <WeatherMessage data={data} />
             </div>
         );
     }
