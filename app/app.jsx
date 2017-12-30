@@ -14,11 +14,10 @@ $(document).foundation();
 
 ReactDOM.render(
     <Router history={hashHistory}>
-
         <Route path="/" component={MainComponent}>
+            <IndexRoute component={WeatherComponent} />
             <Route path="about" component={AboutComponent}></Route>
             <Route path="examples" component={ExamplesComponent}></Route>
-            <IndexRoute component={WeatherComponent} />
         </Route>
 
     </Router>,
