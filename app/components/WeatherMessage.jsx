@@ -1,8 +1,8 @@
 var React = require('react');
 
 var WeatherMessage = React.createClass({
-    render: function () {
-        var {city , temp} = this.props.data;
+    render: function(){
+        var { city, temp } = this.props.data;
         return (
             <div>
                 <p>
