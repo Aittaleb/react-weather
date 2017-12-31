@@ -20,7 +20,9 @@ var WeatherComponent = React.createClass({
     handleCityName: function (city) {
         this.setState({
             isLoading: true,
-            errorMessage : undefined
+            errorMessage: undefined,
+            city: undefined,
+            temp: undefined
         });
         var self = this;
         getTemp(city).then(function (temp) {
@@ -29,32 +31,44 @@ var WeatherComponent = React.createClass({
                 temp,
                 isLoading: false
             });
-
         }, function (e) {
             self.setState({
                 isLoading: false,
-                errorMessage: e.message
-            });
-          
+                errorMessage: e.message,
+            }); 
         });
     },
+    componentDidMount: function () {
+        var location = this.props.location.query.location;
+        if (location && location.length > 0) {
+            this.handleCityName(location);
+            window.location.hash = '/#';
+        }
+    },
+    componentWillReceiveProps: function (newProps) {
+        var location = newProps.location.query.location;
+        if (location && location.length > 0) {
+            this.handleCityName(location);
+            window.location.hash = '/#';
+        }
+    },
     render: function () {
-        var { isLoading ,city, temp , errorMessage } = this.state;
+        var { isLoading, city, temp, errorMessage } = this.state;
         var data = { city, temp }
-        function renderMessage(){
-            if(isLoading){
+        function renderMessage() {
+            if (isLoading) {
                 return <h3 className="text-center">Loading...</h3>
-            }else if(temp && city ){
-                return  <WeatherMessage data={data} />
+            } else if (temp && city) {
+                return <WeatherMessage data={data} />
             }
         }
-        function renderError(){
-            if(typeof errorMessage === 'string')
-            return (
-                <div>
-                    <ErrorComponent message={errorMessage} />
-                </div>
-            );
+        function renderError() {
+            if (typeof errorMessage === 'string')
+                return (
+                    <div>
+                        <ErrorComponent message={errorMessage} />
+                    </div>
+                );
         }
         return (
             <div>
