@@ -8,10 +8,12 @@ var WeatherComponent = require('./components/weatherComponent');
 var AboutComponent = require('./components/AboutComponent');
 var ExamplesComponent = require('./components/ExamplesComponent');
 
+
 // load foundation
 require('style!css!foundation-sites/dist/foundation.min.css')
 //load css
-require('style!css!app/styles/app.css')
+require('style!css!sass!app/styles/app.scss')
+
 
 $(document).foundation();
 
