@@ -22,7 +22,8 @@ module.exports = {
     root: __dirname,
     alias: {
       MainComponent: 'app/components/MainComponent.jsx',
-      WeatherComponent: 'app/components/weatherComponent.jsx'
+      WeatherComponent: 'app/components/weatherComponent.jsx',
+      applicationStyles : 'app/styles/app.css'
     },
     extensions: ['', '.js', '.jsx']
   },
