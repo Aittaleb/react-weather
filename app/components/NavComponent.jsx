@@ -26,7 +26,7 @@ var NavComponent = React.createClass({
                                 <input type="search" placeholder="Search Weather" />
                             </li>
                             <li>
-                                <button className="button" type="submit" class="button">Search</button>
+                                <button className="button" type="submit" className="hollow button">Search</button>
                             </li>
                         </ul>
                     </form>

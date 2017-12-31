@@ -7,7 +7,7 @@ var NavComponent = require('./components/NavComponent.jsx');
 var WeatherComponent = require('./components/weatherComponent');
 var AboutComponent = require('./components/AboutComponent');
 var ExamplesComponent = require('./components/ExamplesComponent');
- 
+
 // load foundation
 require('style!css!foundation-sites/dist/foundation.min.css')
 $(document).foundation();
